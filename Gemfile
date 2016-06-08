@@ -53,3 +53,6 @@ gem 'haml', '~> 4.0', '>= 4.0.7'
 
 # Forms made easy!
 gem 'simple_form', '~> 3.2', '>= 3.2.1'
+
+# Flexible authentication solution for Rails with Warden
+gem 'devise', '~> 4.1', '>= 4.1.1'
