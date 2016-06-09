@@ -1,26 +1,25 @@
-= image_tag @post.image(:medium)
-%h1= @post.title
-%p= @post.link
-%p= @post.description
-%P= @post.user.name
-%p
-  = @post.get_upvotes.size
-  Likes
-%p
-  = @post.get_downvotes.size
-  Dislikes
-= link_to 'Like', like_post_path(@post), method: :get
-= link_to 'Dislike', dislike_post_path(@post), method: :get
-#comment
-  %h2.comment_count= pluralize(@post.comments.count, 'Comment')
-  - @comments.each do |comment|
-    .comment
-      %p.username= comment.user.name
-      %p.content= comment.content
-
-  = render 'comments/form'
-= link_to 'Edit', edit_post_path
-= link_to 'Delete', post_path, method: :delete, data: { confirm: 'Are you sure?'}
-= link_to 'Back', posts_path
-
+#post_show
+  %h1= @post.title
+  %p.username
+    Share by
+    = @post.user.name
+    = time_ago_in_words(@post.created_at)
+  .clearfix
+    .post_image_description
+      = image_tag @post.image.url(:medium)
+      .description= simple_format(@post.description)
+    .post_data
+      = link_to 'Visit Link', @post.link, class: 'button'
+      = link_to like_post_path(@post), method: :get, class: 'data' do
+        %i.fa.fa-thumbs-o-up
+        = pluralize(@post.get_upvotes.size, 'Likes')
+      = link_to dislike_post_path(@post), method: :get, class: 'data' do
+        %i.fa.fa-thumbs-o-up
+        = pluralize(@post.get_downvotes.size, 'Dislikes')
+      %p.data
+        %i.fa.fa-comments-0
+        = pluralize(@post.comments.count, 'Comment')
+      - if @post.user == current_user
+        = link_to 'Edit', edit_post_path, class: 'data'
+        = link_to 'Delete', post_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'data'
 

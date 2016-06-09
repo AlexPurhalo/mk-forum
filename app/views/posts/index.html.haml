@@ -1,14 +1,36 @@
-- @posts.each do |post|
-  = link_to(post) do
-    = image_tag post.image.url(:small)
-    %h2= post.title
-    %p
-      = post.comments.count
-      Comments
-    %p
-      = post.get_likes.size
-      Likes
-  =link_to 'Edit', edit_post_path(post)
-  =link_to 'Delete', post_path(post), method: :delete
+- if user_signed_in?
+  %p#intro
+    Hello
+    = current_user.name
+    %br/
+    %span
+      Share your inspiration and see what's inspiring others.
+- else
+  %p#intro
+    What's your muse?
+    %br/
+    %span
+      Share your inspiration and see what's inspiring others.
 
-= link_to 'New Post', new_post_path
+#posts
+  - @posts.each do |post|
+    .post
+      = link_to(post) do
+        .post_image
+          = image_tag post.image.url(:small)
+        .post_content
+          .title
+            %h2= post.title
+          .data.clearfix
+            %p.username
+              Shared by
+              = post.user.name
+            %p.buttons
+              %span
+                %i.fa-comments-o
+                = post.comments.count
+              %span
+                %i.fa-comments-o-up
+                = post.get_likes.size
+
+
