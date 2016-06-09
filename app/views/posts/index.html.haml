@@ -2,6 +2,10 @@
   = link_to(post) do
     = image_tag post.image.url(:small)
     %h2= post.title
+    %p
+      = post.comments.count
+      Comments
+
   =link_to 'Edit', edit_post_path(post)
   =link_to 'Delete', post_path(post), method: :delete
 
