@@ -5,7 +5,9 @@
     %p
       = post.comments.count
       Comments
-
+    %p
+      = post.get_likes.size
+      Likes
   =link_to 'Edit', edit_post_path(post)
   =link_to 'Delete', post_path(post), method: :delete
 
