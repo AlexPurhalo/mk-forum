@@ -17,3 +17,6 @@
 /tmp
 /.idea/workspace.xml
 /.idea/mk-forum.iml
+
+**/.idea/workspace.xml
+**/.idea/tasks.xml
